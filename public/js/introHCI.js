@@ -15,6 +15,16 @@ function initializePage() {
 }
 
 /*
+var results = require('../data.json');
+	
+exports.view = function(req, res){
+  	console.log(data);
+  	res.render('index');
+};
+*/
+
+
+/*
  * Make an AJAX call to retrieve project details and add it in
  */
 function addProjectDetails(e) {
@@ -27,7 +37,21 @@ function addProjectDetails(e) {
 	var idNumber = projectID.substr('project'.length);
 
 	console.log("User clicked on project " + idNumber);
+
+	$.get("/project/idNumber", addProjectDetails);
+	console.log("/project/" + idNumber);
+
+  	var projectHTML = '<a href="#" class="thumbnail">' +
+    '<img src="' + addProjectDetails['image'] + '" class="detailsImage">' +
+    '<p>' + addProjectDetails['title'] + '</p>' +
+    '<p><small>' + addProjectDetails['date'] +
+    '</small></p></a>';
+
+	//$(".details").append("foo")
+	$(".details").html(projectHTML);
+
 }
+
 
 /*
  * Make an AJAX call to retrieve a color palette for the site
@@ -35,4 +59,5 @@ function addProjectDetails(e) {
  */
 function randomizeColors(e) {
 	console.log("User clicked on color button");
+	$.get("/palette", randomizeColors);
 }
